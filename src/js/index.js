@@ -7,10 +7,14 @@ const imageCarousel = (function () {
   const watch1 = new Image();
   const watch2 = new Image();
   const watch3 = new Image();
+  const display = document.getElementById('display');
 
   watch1.src = img1;
   watch2.src = img2;
   watch3.src = img3;
 
-  const imgArray = [];
+  const imgArray = [img1, img2, img3];
+
+  display.src = imgArray[2];
+  console.log(imgArray);
 })();
