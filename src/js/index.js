@@ -6,6 +6,8 @@ import img3 from '../img/watch3.png';
 const imageCarousel = (function () {
   const rightButton = document.getElementById('right');
   const leftButton = document.getElementById('left');
+  const littleCircles = document.querySelectorAll('.littleCircles svg');
+  const selectedCircle = document.getElementById('selectedCircle');
   const watch1 = new Image();
   const watch2 = new Image();
   const watch3 = new Image();
@@ -38,17 +40,24 @@ const imageCarousel = (function () {
   const imgArray = [
     {
       color: 'Rose Gold',
+      littleCircle: 1,
       image: watch1,
     },
     {
       color: 'Grey',
+      littleCircle: 2,
       image: watch2,
     },
     {
       color: 'Dark Blue',
+      littleCircle: 3,
       image: watch3,
     },
   ];
+  function currentCircle(indexOfArray) {
+    littleCircles[indexOfArray].innerHTML = '';
+    selectedCircle.style.display = 'block';
+  }
   //reads array index and displays the image and its color
   function displayCarousel(indexOfArray) {
     display.src = imgArray[indexOfArray].image.src;
@@ -60,6 +69,11 @@ const imageCarousel = (function () {
       displayCarousel(getCurrImg());
     }, 5000);
   }
+  littleCircles.forEach((littleCircle, index) => {
+    littleCircle.addEventListener('click', () => {
+      displayCarousel(index);
+    });
+  });
   rightButton.addEventListener('click', () => {
     increaseIndex();
     displayCarousel(getCurrImg());
@@ -68,6 +82,7 @@ const imageCarousel = (function () {
     decreaseIndex();
     displayCarousel(getCurrImg());
   });
+  console.log(littleCircles);
   return {
     getCurrImg,
     timedDisplay,
@@ -79,5 +94,5 @@ const imageCarousel = (function () {
 })();
 
 const stateOfCarousel = (function () {
-  imageCarousel.getCurrImg();
+  imageCarousel.displayCarousel(imageCarousel.getCurrImg());
 })();

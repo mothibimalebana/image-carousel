@@ -28,6 +28,7 @@ body {
   display: flex;
   gap: 1rem;
 }
+
 .itemColor {
   color: #777;
   font-family: Inter;
