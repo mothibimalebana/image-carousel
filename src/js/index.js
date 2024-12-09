@@ -13,8 +13,22 @@ const imageCarousel = (function () {
   const color = document.querySelector('.itemColor');
   let currImage = 0;
   const getCurrImg = () => currImage;
-  const increaseIndex = () => currImage++;
-  const decreaseIndex = () => currImage--;
+  const increaseIndex = () => {
+    if (currImage == 2) {
+      currImage = 0;
+      return currImage;
+    } else {
+      return currImage++;
+    }
+  };
+  const decreaseIndex = () => {
+    if (currImage == 0) {
+      currImage = 2;
+      return currImage;
+    } else {
+      return currImage--;
+    }
+  };
   const updateIndex = (newIndex) => (currImage = newIndex);
   watch1.src = img1;
   watch2.src = img2;
@@ -40,6 +54,12 @@ const imageCarousel = (function () {
     display.src = imgArray[indexOfArray].image.src;
     color.textContent = `${imgArray[indexOfArray].color}`;
   }
+  function timedDisplay() {
+    setTimeout(() => {
+      increaseIndex();
+      displayCarousel(getCurrImg());
+    }, 5000);
+  }
   rightButton.addEventListener('click', () => {
     increaseIndex();
     displayCarousel(getCurrImg());
@@ -50,6 +70,7 @@ const imageCarousel = (function () {
   });
   return {
     getCurrImg,
+    timedDisplay,
     displayCarousel,
     updateIndex,
     increaseIndex,
@@ -58,17 +79,5 @@ const imageCarousel = (function () {
 })();
 
 const stateOfCarousel = (function () {
-  const dummyArray = ['img1', 'img2', 'img3'];
-  let i = 0;
-  while (i < dummyArray.length) {
-    if (i == dummyArray.length - 1) {
-      console.log(i);
-      console.log('wait 5 seconds');
-      i = 0;
-    } else {
-      console.log(i);
-      console.log('wait 5 seconds');
-      i++;
-    }
-  }
+  imageCarousel.getCurrImg();
 })();
